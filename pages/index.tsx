@@ -40,8 +40,8 @@ export default function Home() {
               <button>
                   Login with GitHub
               </button>
-              <button onClick={fetch}>test</button>
           </a>
+          <button onClick={fetch}>test</button>
       </main>
     </>
   )

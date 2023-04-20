@@ -9,21 +9,23 @@ const inter = Inter({ subsets: ['latin'] })
 const octokit = new Octokit({
 });
 
-const queryString = window.location.search;
 
-const urlParams = new URLSearchParams(queryString);
 
 const client_secret = 'ab3375dda2387cf2e6c666f759fdf65bd982b724';
 const client_id = '823088350817b5fcb472';
-const code = urlParams.get('code');
 
 
 function fetch() {
     octokit.request("POST https://github.com/login/oauth/access_token", {
         client_id : client_id,
         client_secret : client_secret,
-        code : code,
         redirect_uri : 'http://localhost:3000/'
+    });
+}
+
+function fetchCode() {
+    octokit.request(`GET https://github.com/login/oauth/authorize`, {
+        client_id : client_id
     });
 }
 export default function Home() {
@@ -36,11 +38,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-          <a href="https://github.com/login/oauth/authorize?client_id=823088350817b5fcb472&redirect_uri=http://localhost:3000/">
-              <button>
-                  Login with GitHub
-              </button>
-          </a>
+
+          <button onClick={fetchCode}>Login with GitHub</button>
+
           <button onClick={fetch}>test</button>
       </main>
     </>
